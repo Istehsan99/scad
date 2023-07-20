@@ -10,8 +10,11 @@ const News = (props)=> {
   const [totalResults, settotalResults] = useState(0)
 
 const updatePage = async ()=>{
-  // props.setProgress(10);
-  let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=7ea98788c6694a9aa7a84f4d7b9cfaa6&page=${page}&pageSize=${props.pageSize}`
+  // props.setProgress(10)
+
+  // ......................try catch................
+  try {
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=7ea98788c6694a9aa7a84f4d7b9cfaa6&page=${page}&pageSize=${props.pageSize}`
   // this.setState({loading: true})
   setLoading(true)
     let data = await fetch(url)
@@ -22,6 +25,11 @@ const updatePage = async ()=>{
     setLoading(false);
     settotalResults(parsedData.totalResults);
   // props.setProgress(100);
+    
+  } catch (error) {
+    console.log(error);
+  }
+  
 }
 useEffect(() => {
   document.title = `${props.category}-NewsFlasher`
